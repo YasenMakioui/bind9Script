@@ -3,8 +3,14 @@ import os
 def validar():
     correcte = True
     while correcte:
+        path = ""
         nom = input("Posa el nom del fitxer: ")
-        if os.path.isfile("/home/yasin/Desktop/db.{}.com".format(nom)):
+        directori = input("Indica la ruta, si estas executant el script a la mateixa carpeta on vols realitzar el process, posa \"Aqui\"")
+        if not directori == "Aqui":
+            path = directori + "/"         
+        
+
+        if os.path.isfile("{}db.{}.com".format(path, nom)):
             print("El fitxer db.{}.com ja existeix".format(nom))
         else:
             if os.path.isfile("/home/yasin/Desktop/db.local.com"):
