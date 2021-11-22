@@ -1,31 +1,29 @@
 import os
 import sys
 
-def validar():
-    correcte = True
-    while correcte:     
-        nombre = sys.argv[1]
-        print("db.{}.com".format(nombre))
-        if os.path.isfile("db.{}.com".format(nombre)):
-            print("El fitxer db.{}.com ja existeix".format(nombre))
+def checker():
+    bool = True
+    while bool:     
+        name = sys.argv[1]
+        if os.path.isfile("db.{}.com".format(name)):
+            print("El fitxer db.{}.com ja existeix".format(name))
         else:
             if os.path.isfile("db.local.com"):
-                correcte = False
-                copyProcess(nombre)
+                bool = False
+                copyPasteProcess(name)
             else:
                 print("Error: db.local.com no s'ha trobat")
-                correcte = False        
+                bool = False        
 
 
-
-def copyProcess(nombre):
-    if os.path.isfile("db.{}.com".format(nombre)):
+ 
+def copyPasteProcess(name):
+    if os.path.isfile("db.{}.com".format(name)):
         print("El fitxer ja existeix")
     else:
-        os.system("cp db.local.com db.{}.com".format(nombre))
-        os.system("sed -i 's/localhost/{}/g' db.{}.com".format(nombre, nombre))    
+        os.system("cp db.local.com db.{}.com".format(name))
+        os.system("sed -i 's/localhost/{}/g' db.{}.com".format(name, name))    
 
 
 
-validar()      
-
+checker()      
