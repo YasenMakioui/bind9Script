@@ -2,6 +2,10 @@ import os
 import sys
 import time
 
+def main():
+    checker()
+    sshConnection()
+
 def checker():
     bool = True
     while bool:     
@@ -29,8 +33,6 @@ def copyPasteProcess(name):
 def sshConnection():
     os.system('cat slave.py | ssh yasin@{} python3 -'.format(sys.argv[1])) # python3 -u - < slave.py'.format(sys.argv[1]))
     
-    
 
-
-#checker()      
-sshConnection()
+if __name__ == '__main_':
+    main()
