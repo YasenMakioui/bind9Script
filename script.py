@@ -26,11 +26,8 @@ def copyPasteProcess(name):
         os.system("sed -i 's/localhost/{}/g' db.{}.com".format(name, name))
         os.system("service bind9 restart")
     
-def escribe():
-    os.system("echo 'xd'")
-
 def sshConnection():
-    os.system('ssh yasin@192.168.1.56 python3 -u - < slave.py')
+    os.system('cat slave.py | ssh yasin@{} python3 -'.format(sys.argv[1])) # python3 -u - < slave.py'.format(sys.argv[1]))
     
     
 
