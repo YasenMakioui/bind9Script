@@ -1,30 +1,31 @@
 import os
+import sys
 
 def validar():
     correcte = True
-    while correcte:
-        path = ""
-        nom = input("Posa el nom del fitxer: ")
-        directori = input("Indica la ruta, si estas executant el script a la mateixa carpeta on vols realitzar el process, posa \"Aqui\"")
-        if not directori == "Aqui":
-            path = directori + "/"         
-        
-
-        if os.path.isfile("{}db.{}.com".format(path, nom)):
-            print("El fitxer db.{}.com ja existeix".format(nom))
+    while correcte:     
+        nombre = sys.argv[1]
+        print("db.{}.com".format(nombre))
+        if os.path.isfile("db.{}.com".format(nombre)):
+            print("El fitxer db.{}.com ja existeix".format(nombre))
         else:
-            if os.path.isfile("/home/yasin/Desktop/db.local.com"):
+            if os.path.isfile("db.local.com"):
                 correcte = False
-                copyProcess(nom)
+                copyProcess(nombre)
             else:
                 print("Error: db.local.com no s'ha trobat")
                 correcte = False        
 
 
 
-def copyProcess(nom):
-    if os.path.isfile("/home/yasin/Desktop/db.{}.com".format(nom)):
+def copyProcess(nombre):
+    if os.path.isfile("db.{}.com".format(nombre)):
         print("El fitxer ja existeix")
     else:
-        os.system("cp db.local.com db.{}.com".format(nom))
-        os.system("sed -i 's/localhost/{}/g' /home/yasin/Desktop/db.{}.com".format(nom))    
+        os.system("cp db.local.com db.{}.com".format(nombre))
+        os.system("sed -i 's/localhost/{}/g' db.{}.com".format(nombre, nombre))    
+
+
+
+validar()      
+
