@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 
 def checker():
     bool = True
@@ -22,8 +23,17 @@ def copyPasteProcess(name):
         print("El fitxer ja existeix")
     else:
         os.system("cp db.local.com db.{}.com".format(name))
-        os.system("sed -i 's/localhost/{}/g' db.{}.com".format(name, name))    
+        os.system("sed -i 's/localhost/{}/g' db.{}.com".format(name, name))
+        os.system("service bind9 restart")
+    
+def escribe():
+    os.system("echo 'xd'")
+
+def sshConnection():
+    os.system('ssh yasin@192.168.1.56 python3 -u - < slave.py')
+    
+    
 
 
-
-checker()      
+#checker()      
+sshConnection()
