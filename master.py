@@ -2,12 +2,23 @@ import os
 import sys
 import time
 
+def options():
+    print("Que vols fer:")
+    option = input("1 - Configuració inicial master i slave\n2 - Afegir un domini nou a un bind ja configurat\n")
+    if option == "1":
+        print("opcion 1")
+    elif option == "2":
+        print("opcion 2")
+    else:
+        print("mal")        
+
 def checker():
     bool = True
     while bool:     
         name = sys.argv[1]
         if os.path.isfile(f"db.{name}.com"):
-            print("El fitxer db.{name}.com ja existeix")
+            print(f"El fitxer db.{name}.com ja existeix")
+            bool = False
         else:
             if os.path.isfile("db.local.com"):
                 bool = False
@@ -32,11 +43,17 @@ def sshConnection():
 
 def zoneConfig(name):
     #configurar la zona
-    f = open("named.conf.local", "a")
-    f.write('zone "{}.com" { type master; file /etc/bind/db.{name}.com; allow-transfer {sys.argv[1]};  }'.format(name))
-    f.close()
+    zone = ['',f'zone "{name}.com"' + '{', '\ttype master;', f'\tfile /etc/bind/db.{name}.com;',f'\tallow-transfer '+ '{ ' + sys.argv[2] + '; };', '}']
+    with open("named.conf.local", "a") as f:
+        f.writelines('\n'.join(zone))
+        f.close()
 
+def systemRestart():
+    time.sleep(3)
+    os.system("service bind9 reload")
 
 if __name__ == '__main__':
-    checker()
+    #checker()
     #sshConnection()
+    #systemRestart()
+    options()
